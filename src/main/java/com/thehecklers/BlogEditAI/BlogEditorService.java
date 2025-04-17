@@ -15,14 +15,7 @@ public class BlogEditorService {
     public BlogEditorService(ChatClient.Builder builder) {
         this.client = builder.build();
     }
-
-    /**
-     * This method ensures at least one feedback-improvement cycle occurs to demonstrate
-     * the full evaluator-optimizer pattern in action, regardless of initial draft quality.
-     *
-     * @param draftspec The inbound draft details
-     * @return A BlogGenerationResult containing the content and metadata
-     */
+    
     public DraftCritique critiqueDraft(DraftRequestSpec draftspec) {
         logger.info("Beginning critique...");
 
