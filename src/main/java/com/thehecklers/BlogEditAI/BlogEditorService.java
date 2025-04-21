@@ -15,15 +15,15 @@ public class BlogEditorService {
     public BlogEditorService(ChatClient.Builder builder) {
         this.client = builder.build();
     }
-    
+
     public DraftCritique critiqueDraft(DraftRequestSpec draftspec) {
         logger.info("Beginning critique...");
 
         var approved = false;
         var prompt = String.format("""
                 You are a critical blog editor with extremely high standards. Evaluate the following blog draft and respond with either:
-                PASS - if the draft is exceptional, well-written, engaging, and complete
-                NEEDS_IMPROVEMENT - followed by specific, actionable feedback on what to improve
+                BLOG_PASS - if the draft is exceptional, well-written, engaging, and complete
+                BLOG_FAIL - followed by specific, actionable feedback on what to improve
                 
                 Focus on:
                 - Clarity and flow of ideas
@@ -34,10 +34,9 @@ public class BlogEditorService {
                 
                 IMPORTANT EVALUATION RULES:
                 1. The blog MUST have no more than %d sentences total. Count the sentences carefully.
-                2. For the first iteration, ALWAYS respond with NEEDS_IMPROVEMENT regardless of quality.
+                2. If the draft exceeds the specified maximum sentence count, it must receive a BLOG_FAIL rating.
                 3. Be extremely thorough in your evaluation and provide detailed feedback.
-                4. If the draft exceeds 15 sentences, it must receive a NEEDS_IMPROVEMENT rating.
-                5. Even well-written drafts should receive suggestions for improvement in early iterations.
+                4. Even well-written drafts should receive suggestions for improvement in early iterations.
                 
                 Draft:
                 %s
@@ -62,11 +61,11 @@ public class BlogEditorService {
     }
 
     private DraftCritique extractFeedback(@NotNull String evaluation) {
-        boolean pass = evaluation.toUpperCase().contains("PASS");
+        var pass = evaluation.toUpperCase().contains("BLOG_PASS");
+        var grade = pass ? "BLOG_PASS" : "BLOG_FAIL";
 
-        // Get the index of the evaluation status (PASS or NEEDS_IMPROVEMENT)
-        int idx = (pass ? evaluation.toUpperCase().indexOf("PASS") + ("PASS").length()
-                : evaluation.toUpperCase().indexOf("NEEDS_IMPROVEMENT") + ("NEEDS_IMPROVEMENT").length());
+        // Get the index of the actual evaluation status (after BLOG_PASS or BLOG_FAIL)
+        int idx = evaluation.toUpperCase().indexOf(grade) + grade.length();
 
         return new DraftCritique(pass,
                 evaluation.substring(idx).trim());
