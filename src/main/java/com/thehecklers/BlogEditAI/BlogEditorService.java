@@ -44,7 +44,7 @@ public class BlogEditorService {
                 %s
                 """, draftspec.maxSentences(), draftspec.draft());
 
-        logger.info("Sending draft for editorial evaluation");
+        logger.info("Submitting draft for editorial evaluation");
         var feedback = client.prompt()
                 .user(prompt)
                 .call()
