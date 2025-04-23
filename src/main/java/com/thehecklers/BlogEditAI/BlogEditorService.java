@@ -27,16 +27,18 @@ public class BlogEditorService {
                 
                 Focus on:
                 - Clarity and flow of ideas
+                - Insightfulness - it mustn't just regurgitate common knowledge
                 - Engagement and reader interest
                 - Professional yet conversational tone
                 - Structure and organization
                 - Strict adherence to the specified maximum length requirement
                 
                 IMPORTANT EVALUATION RULES:
-                1. The blog MUST have no more than %d sentences total. Count the sentences carefully.
-                2. If the draft exceeds the specified maximum sentence count, it must receive a BLOG_FAIL rating.
-                3. Be extremely thorough in your evaluation and provide detailed feedback.
-                4. Even well-written drafts should receive suggestions for improvement in early iterations.
+                1. The blog MUST have no more than %d sentences total, otherwise it must receive a BLOG_FAIL rating.
+                2. Be extremely thorough in your evaluation and provide detailed feedback.
+                3. Even well-written drafts should receive suggestions for improvement in early iterations.
+                4. Be strict with the language, as a PhD-level English expert with a passion for high-quality writing.
+                5. Be strict with the technical aspects of the draft, as a PhD-level expert in the blog's subject matter.
                 
                 Draft:
                 %s
