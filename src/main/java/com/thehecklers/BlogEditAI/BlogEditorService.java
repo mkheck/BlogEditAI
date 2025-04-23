@@ -16,6 +16,10 @@ public class BlogEditorService {
         this.client = builder.build();
     }
 
+    public DraftCritique critiqueDraft(String draft) {
+        return critiqueDraft(new DraftRequestSpec(1000, draft));
+    }
+
     public DraftCritique critiqueDraft(DraftRequestSpec draftspec) {
         logger.info("Beginning critique...");
 

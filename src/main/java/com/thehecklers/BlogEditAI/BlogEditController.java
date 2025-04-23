@@ -23,4 +23,10 @@ public class BlogEditController {
     public DraftCritique editDraft(@RequestBody DraftRequestSpec draftRequestSpec) {
         return editorService.critiqueDraft(draftRequestSpec);
     }
+
+    // Allow for passing in plain text draft *directly*, to critique without any additional crafting
+    @PostMapping("/api/revise")
+    public DraftCritique reviseDraft(@RequestBody String draft) {
+        return editorService.critiqueDraft(draft);
+    }
 }
